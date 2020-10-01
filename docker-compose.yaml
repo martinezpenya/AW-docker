@@ -1,0 +1,25 @@
+version: '2'
+
+services:
+  ## SERVIDOR WEB ##
+  nginx:
+    image: bitnami/nginx:latest
+    ports:
+      - 80:8080
+    volumes:
+      - ./nginx-vhost/myapp.conf:/bitnami/nginx/conf/vhosts/myapp.conf
+      - ./app:/app
+
+  ## SERVIDOR BBDD ##
+  mariadb:
+    image: bitnami/mariadb:latest
+    environment:
+      - MARIADB_ROOT_PASSWORD=awcatadau2020
+    volumes:
+      - ./mysqldata:/bitnami/mariadb
+
+  ## LLENGUATGE DE SERVIDOR ##
+  php-fpm:
+    image: bitnami/php-fpm:latest
+    volumes:
+      - ./app:/app
