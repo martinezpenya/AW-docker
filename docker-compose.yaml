@@ -7,7 +7,9 @@ services:
     ports:
       - 80:8080
     volumes:
-      - ./nginx-vhost/myapp.conf:/bitnami/nginx/conf/vhosts/myapp.conf
+      # ERROR ==> Custom server blocks files were found inside '/bitnami/nginx/conf/vhosts'. This configuration is not supported anymore. Please mount your custom server blocks config files at '/opt/bitnami/nginx/conf/server_blocks' instead.
+      #- ./nginx-vhost/myapp.conf:/bitnami/nginx/conf/vhosts/myapp.conf
+      - ./nginx-vhost/myapp.conf:/opt/bitnami/nginx/conf/server_blocks/myapp.conf
       - ./app:/app
 
   ## SERVIDOR BBDD ##
@@ -16,6 +18,7 @@ services:
     environment:
       - MARIADB_ROOT_PASSWORD=awcatadau2020
     volumes:
+      #abans llançar  sudo chown -R 1001:1001 mysqldata/
       - ./mysqldata:/bitnami/mariadb
 
   ## LLENGUATGE DE SERVIDOR ##
